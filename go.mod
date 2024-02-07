@@ -1,4 +1,4 @@
-module code.siemens.com/saywot/go-thingdescription-structs
+module github.com/web-of-things-open-source/thingdescription-go
 
 go 1.21.5
 

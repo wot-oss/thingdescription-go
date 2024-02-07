@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"os"
 
-	"code.siemens.com/saywot/go-thingdescription-structs/thingDescription"
+	"github.com/web-of-things-open-source/thingdescription-go/thingDescription"
 )
 
 
