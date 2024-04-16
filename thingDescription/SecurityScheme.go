@@ -2,7 +2,7 @@ package thingDescription
 
 // Applies to additional SecuritySchemes not defined in the WoT TD specification.
 type SecurityScheme struct {
-	Type          *TypeDeclaration  `json:"@type"`
+	Type          *TypeDeclaration  `json:"@type,omitempty"`
 	Description   *string           `json:"description,omitempty"`
 	Descriptions  map[string]string `json:"descriptions,omitempty"`
 	Proxy         *string           `json:"proxy,omitempty"`
@@ -18,6 +18,6 @@ type SecurityScheme struct {
 	Identity      *string           `json:"identity,omitempty"`
 	Flow          *string           `json:"flow,omitempty"`
 	Refresh       *string           `json:"refresh,omitempty"`
-	Scopes        *TypeDeclaration  `json:"scopes"`
+	Scopes        *TypeDeclaration  `json:"scopes,omitempty"`
 	Token         *string           `json:"token,omitempty"`
 }

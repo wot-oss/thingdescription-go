@@ -19,12 +19,12 @@ func UnmarshalThingDescription(data []byte) (ThingDescription, error) {
 	return r, err
 }
 
-func (r *ThingDescription)UnmarshalJSON(data []byte) error  {
+func (r *ThingDescription) UnmarshalJSON(data []byte) error {
 	type ThingDescriptionRaw ThingDescription
 
 	tmp := struct {
 		Base string `json:"base"`
-		ID string `json:"id"`
+		ID   string `json:"id"`
 		*ThingDescriptionRaw
 	}{
 		ThingDescriptionRaw: (*ThingDescriptionRaw)(r),
@@ -49,12 +49,12 @@ func (r *ThingDescription)UnmarshalJSON(data []byte) error  {
 func (r ThingDescription) MarshalJSON() ([]byte, error) {
 	type ThingDescriptionRaw ThingDescription
 	return json.Marshal(&struct {
-		Base 	string 		`json:"base"`
-		ID 		string 		`json:"id"`
+		Base string `json:"base,omitempty"`
+		ID   string `json:"id"`
 		*ThingDescriptionRaw
 	}{
-		Base: r.Base.String(),
-		ID :  r.ID.String(),
+		Base:                r.Base.String(),
+		ID:                  r.ID.String(),
 		ThingDescriptionRaw: (*ThingDescriptionRaw)(&r),
 	})
 }
@@ -63,7 +63,7 @@ func (r ThingDescription) MarshalJSON() ([]byte, error) {
 // can be with or without terms that have default values
 type ThingDescription struct {
 	Context             *ThingContext              `json:"@context"`
-	Type                *TypeDeclaration           `json:"@type"`
+	Type                *TypeDeclaration           `json:"@type,omitempty"`
 	Actions             map[string]ActionElement   `json:"actions,omitempty"`
 	Base                url.URL                    `json:"base,omitempty"`
 	Created             string                     `json:"created,omitempty"`
@@ -71,10 +71,10 @@ type ThingDescription struct {
 	Descriptions        map[string]string          `json:"descriptions,omitempty"`
 	Events              map[string]EventElement    `json:"events,omitempty"`
 	Forms               []FormElementRoot          `json:"forms,omitempty"`
-	ID                  uri.URI                     `json:"id,omitempty"`
+	ID                  uri.URI                    `json:"id,omitempty"`
 	Links               []IconLinkElement          `json:"links,omitempty"`
 	Modified            *string                    `json:"modified,omitempty"`
-	Profile             *TypeDeclaration           `json:"profile"`
+	Profile             *TypeDeclaration           `json:"profile,omitempty"`
 	Properties          map[string]PropertyElement `json:"properties,omitempty"`
 	SchemaDefinitions   map[string]DataSchema      `json:"schemaDefinitions,omitempty"`
 	Security            *TypeDeclaration           `json:"security"`
