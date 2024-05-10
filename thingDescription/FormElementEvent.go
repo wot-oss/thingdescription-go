@@ -7,8 +7,8 @@ type FormElementEvent struct {
 	ContentType         *string                         `json:"contentType,omitempty"`
 	Href                string                          `json:"href"`
 	Response            *ExpectedResponse               `json:"response,omitempty"`
-	Scopes              *TypeDeclaration                `json:"scopes"`
-	Security            *TypeDeclaration                `json:"security"`
+	Scopes              *TypeDeclaration                `json:"scopes,omitempty"`
+	Security            *TypeDeclaration                `json:"security,omitempty"`
 	Subprotocol         *string                         `json:"subprotocol,omitempty"`
 	AdditionalFields    map[string]interface{}          `json:",unknown"`
 }
