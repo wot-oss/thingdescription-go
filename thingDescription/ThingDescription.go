@@ -7,10 +7,10 @@
 package thingDescription
 
 import (
-	"encoding/json"
 	"net/url"
 
 	"github.com/fredbi/uri"
+	"github.com/go-json-experiment/json"
 )
 
 func UnmarshalThingDescription(data []byte) (ThingDescription, error) {
@@ -19,12 +19,17 @@ func UnmarshalThingDescription(data []byte) (ThingDescription, error) {
 	return r, err
 }
 
-func (r *ThingDescription)UnmarshalJSON(data []byte) error  {
+func (c *ThingDescription) HandleJSONData(data map[string]interface{}) error {
+	c.AdditionalFields = data
+	return nil
+}
+
+func (r *ThingDescription) UnmarshalJSON(data []byte) error {
 	type ThingDescriptionRaw ThingDescription
 
 	tmp := struct {
 		Base string `json:"base"`
-		ID string `json:"id"`
+		ID   string `json:"id"`
 		*ThingDescriptionRaw
 	}{
 		ThingDescriptionRaw: (*ThingDescriptionRaw)(r),
@@ -49,12 +54,12 @@ func (r *ThingDescription)UnmarshalJSON(data []byte) error  {
 func (r ThingDescription) MarshalJSON() ([]byte, error) {
 	type ThingDescriptionRaw ThingDescription
 	return json.Marshal(&struct {
-		Base 	string 		`json:"base"`
-		ID 		string 		`json:"id"`
+		Base string `json:"base"`
+		ID   string `json:"id"`
 		*ThingDescriptionRaw
 	}{
-		Base: r.Base.String(),
-		ID :  r.ID.String(),
+		Base:                r.Base.String(),
+		ID:                  r.ID.String(),
 		ThingDescriptionRaw: (*ThingDescriptionRaw)(&r),
 	})
 }
@@ -71,7 +76,7 @@ type ThingDescription struct {
 	Descriptions        map[string]string          `json:"descriptions,omitempty"`
 	Events              map[string]EventElement    `json:"events,omitempty"`
 	Forms               []FormElementRoot          `json:"forms,omitempty"`
-	ID                  uri.URI                     `json:"id,omitempty"`
+	ID                  uri.URI                    `json:"id,omitempty"`
 	Links               []IconLinkElement          `json:"links,omitempty"`
 	Modified            *string                    `json:"modified,omitempty"`
 	Profile             *TypeDeclaration           `json:"profile"`
@@ -84,4 +89,5 @@ type ThingDescription struct {
 	Titles              map[string]string          `json:"titles,omitempty"`
 	URIVariables        map[string]DataSchema      `json:"uriVariables,omitempty"`
 	Version             *Version                   `json:"version,omitempty"`
+	AdditionalFields    map[string]interface{}     `json:",unknown"`
 }

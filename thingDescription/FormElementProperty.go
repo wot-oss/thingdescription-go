@@ -1,22 +1,25 @@
 package thingDescription
 
 import (
-	"encoding/json"
 	"net/url"
+
+	"github.com/go-json-experiment/json"
 )
+
 type FormElementProperty struct {
 	Op                  *FormElementPropertyOp          `json:"op"`
 	AdditionalResponses []AdditionalResponsesDefinition `json:"additionalResponses,omitempty"`
 	ContentCoding       *string                         `json:"contentCoding,omitempty"`
 	ContentType         *string                         `json:"contentType,omitempty"`
-	Href                url.URL                          `json:"href"`
+	Href                url.URL                         `json:"href"`
 	Response            *ExpectedResponse               `json:"response,omitempty"`
 	Scopes              *TypeDeclaration                `json:"scopes"`
 	Security            *TypeDeclaration                `json:"security"`
 	Subprotocol         *string                         `json:"subprotocol,omitempty"`
+	AdditionalFields    map[string]interface{}          `json:",unknown"`
 }
 
-func (r *FormElementProperty)UnmarshalJSON(data []byte) error  {
+func (r *FormElementProperty) UnmarshalJSON(data []byte) error {
 	type FormElementPropertyRaw FormElementProperty
 
 	tmp := struct {
@@ -40,10 +43,10 @@ func (r *FormElementProperty)UnmarshalJSON(data []byte) error  {
 func (r FormElementProperty) MarshalJSON() ([]byte, error) {
 	type FormElementPropertyRaw FormElementProperty
 	return json.Marshal(&struct {
-		Href 	string 		`json:"href"`
+		Href string `json:"href"`
 		*FormElementPropertyRaw
 	}{
-		Href: r.Href.String(),
+		Href:                   r.Href.String(),
 		FormElementPropertyRaw: (*FormElementPropertyRaw)(&r),
 	})
 }

@@ -1,21 +1,27 @@
 package main
 
 import (
-	"encoding/json"
 	"log"
 	"net/url"
 	"os"
 
+	"github.com/go-json-experiment/json"
 	"github.com/web-of-things-open-source/thingdescription-go/thingDescription"
 )
 
-
-func main() { 
+func main() {
 	content, err := os.ReadFile("./HotelRoom.jsonld")
 	if err != nil {
 		log.Fatal(err)
 	}
-	td,err := thingDescription.UnmarshalThingDescription(content)
+
+	var tdtest map[string]interface{}
+	json.Unmarshal(content, &tdtest)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	td, err := thingDescription.UnmarshalThingDescription(content)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -25,7 +31,7 @@ func main() {
 	td.Security = nil
 	td.Forms = nil
 
-	marshalingJSON ,err := json.Marshal(&td)
+	marshalingJSON, err := json.Marshal(&td)
 	if err != nil {
 		log.Fatal(err)
 	}
