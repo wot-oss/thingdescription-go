@@ -8,6 +8,7 @@
   },
   "security": "nosec_sc",
   "@type": "Thing",
+  "Test:test": "test",
   "base": "coap://localhost:3000",
   "title": "simulated Hotel Room",
   "properties": {
@@ -15,6 +16,7 @@
       "minimum": 0,
       "maximum": 100,
       "type": "integer",
+      "Test:test": "test",
       "title": "Light Brightness",
       "readOnly": false,
       "observable": true,
@@ -55,6 +57,7 @@
       "forms": [
         {
           "href": "/aircon/goalTemperature",
+          "htv:method": "POST",
           "op": [
             "observeproperty",
             "readproperty",
@@ -113,6 +116,7 @@
   "actions": {
     "DimLight": {
       "title": "DimLight",
+      "uknown:Tag": true,
       "input": {
         "type": "object",
         "properties": {

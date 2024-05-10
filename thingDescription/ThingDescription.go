@@ -1,22 +1,21 @@
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse and unparse this JSON data, add this code to your project and do:
-//
-//    thingDescription, err := UnmarshalThingDescription(bytes)
-//    bytes, err = thingDescription.Marshal()
-
 package thingDescription
 
 import (
-	"encoding/json"
 	"net/url"
 
 	"github.com/fredbi/uri"
+	"github.com/go-json-experiment/json"
 )
 
 func UnmarshalThingDescription(data []byte) (ThingDescription, error) {
 	var r ThingDescription
 	err := json.Unmarshal(data, &r)
 	return r, err
+}
+
+func (c *ThingDescription) HandleJSONData(data map[string]interface{}) error {
+	c.AdditionalFields = data
+	return nil
 }
 
 func (r *ThingDescription) UnmarshalJSON(data []byte) error {
@@ -84,4 +83,5 @@ type ThingDescription struct {
 	Titles              map[string]string          `json:"titles,omitempty"`
 	URIVariables        map[string]DataSchema      `json:"uriVariables,omitempty"`
 	Version             *Version                   `json:"version,omitempty"`
+	AdditionalFields    map[string]interface{}     `json:",unknown"`
 }

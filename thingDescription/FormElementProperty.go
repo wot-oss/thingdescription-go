@@ -1,8 +1,9 @@
 package thingDescription
 
 import (
-	"encoding/json"
 	"net/url"
+
+	"github.com/go-json-experiment/json"
 )
 
 type FormElementProperty struct {
@@ -15,6 +16,7 @@ type FormElementProperty struct {
 	Scopes              *TypeDeclaration                `json:"scopes,omitempty"`
 	Security            *TypeDeclaration                `json:"security,omitempty"`
 	Subprotocol         *string                         `json:"subprotocol,omitempty"`
+	AdditionalFields    map[string]interface{}          `json:",unknown"`
 }
 
 func (r *FormElementProperty) UnmarshalJSON(data []byte) error {

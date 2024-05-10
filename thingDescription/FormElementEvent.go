@@ -10,4 +10,5 @@ type FormElementEvent struct {
 	Scopes              *TypeDeclaration                `json:"scopes,omitempty"`
 	Security            *TypeDeclaration                `json:"security,omitempty"`
 	Subprotocol         *string                         `json:"subprotocol,omitempty"`
+	AdditionalFields    map[string]interface{}          `json:",unknown"`
 }
