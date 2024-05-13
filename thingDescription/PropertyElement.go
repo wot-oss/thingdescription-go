@@ -32,3 +32,34 @@ type PropertyElement struct {
 	WriteOnly           *bool                  `json:"writeOnly,omitempty"`
 	AdditionalFields    map[string]interface{} `json:",unknown"`
 }
+
+func (pe *PropertyElement) ToDataSchema() DataSchema {
+	return DataSchema{
+		Type:             pe.Type,
+		ReadOnly:         pe.ReadOnly,
+		WriteOnly:        pe.WriteOnly,
+		Const:            pe.Const,
+		Default:          pe.Default,
+		Enum:             pe.Enum,
+		Description:      pe.Description,
+		Descriptions:     pe.Descriptions,
+		ExclusiveMaximum: pe.ExclusiveMaximum,
+		ExclusiveMinimum: pe.ExclusiveMinimum,
+		Format:           pe.Format,
+		Items:            pe.Items,
+		Maximum:          pe.Maximum,
+		Minimum:          pe.Minimum,
+		MaxItems:         pe.MaxItems,
+		MinItems:         pe.MinItems,
+		MaxLength:        pe.MaxLength,
+		MinLength:        pe.MinLength,
+		MultipleOf:       pe.MultipleOf,
+		OneOf:            pe.OneOf,
+		Properties:       pe.Properties,
+		Required:         pe.Required,
+		Title:            pe.Title,
+		Titles:           pe.Titles,
+		Unit:             pe.Unit,
+		DataSchemaType:   pe.PropertyElementType,
+	}
+}
