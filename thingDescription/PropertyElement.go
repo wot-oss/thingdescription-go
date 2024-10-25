@@ -61,5 +61,6 @@ func (pe *PropertyElement) ToDataSchema() DataSchema {
 		Titles:           pe.Titles,
 		Unit:             pe.Unit,
 		DataSchemaType:   pe.PropertyElementType,
+		AdditionalFields: pe.AdditionalFields,
 	}
 }
