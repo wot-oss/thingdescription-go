@@ -7,7 +7,7 @@ import (
 )
 
 type FormElementProperty struct {
-	Op                  *FormElementPropertyOp          `json:"op"`
+	Op                  *FormElementPropertyOp          `json:"op,omitempty"`
 	AdditionalResponses []AdditionalResponsesDefinition `json:"additionalResponses,omitempty"`
 	ContentCoding       *string                         `json:"contentCoding,omitempty"`
 	ContentType         *string                         `json:"contentType,omitempty"`
