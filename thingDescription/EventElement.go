@@ -1,7 +1,7 @@
 package thingDescription
 
 type EventElement struct {
-	Type             *TypeDeclaration       `json:"@type"`
+	Type             *TypeDeclaration       `json:"@type,omitempty"`
 	Cancellation     *DataSchema            `json:"cancellation,omitempty"`
 	Data             *DataSchema            `json:"data,omitempty"`
 	DataResponse     *DataSchema            `json:"dataResponse,omitempty"`
