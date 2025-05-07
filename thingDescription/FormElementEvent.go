@@ -1,7 +1,7 @@
 package thingDescription
 
 type FormElementEvent struct {
-	Op                  *FormElementEventOp             `json:"op"`
+	Op                  *FormElementEventOp             `json:"op,omitempty"`
 	AdditionalResponses []AdditionalResponsesDefinition `json:"additionalResponses,omitempty"`
 	ContentCoding       *string                         `json:"contentCoding,omitempty"`
 	ContentType         *string                         `json:"contentType,omitempty"`
