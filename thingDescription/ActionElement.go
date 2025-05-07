@@ -1,7 +1,7 @@
 package thingDescription
 
 type ActionElement struct {
-	Type             *TypeDeclaration       `json:"@type"`
+	Type             *TypeDeclaration       `json:"@type,omitempty"`
 	Description      *string                `json:"description,omitempty"`
 	Descriptions     map[string]string      `json:"descriptions,omitempty"`
 	Forms            []FormElementAction    `json:"forms"`
