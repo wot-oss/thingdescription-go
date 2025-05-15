@@ -1,9 +1,11 @@
 package thingDescription
 
-import "encoding/json"
+import (
+	"bytes"
+	"errors"
 
-import "bytes"
-import "errors"
+	"github.com/goccy/go-json"
+)
 
 func unmarshalUnion(data []byte, pi **int64, pf **float64, pb **bool, ps **string, haveArray bool, pa interface{}, haveObject bool, pc interface{}, haveMap bool, pm interface{}, haveEnum bool, pe interface{}, nullable bool) (bool, error) {
 	if pi != nil {
