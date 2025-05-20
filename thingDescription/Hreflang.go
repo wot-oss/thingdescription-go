@@ -7,13 +7,8 @@ type Hreflang struct {
 
 func (x *Hreflang) UnmarshalJSON(data []byte) error {
 	x.StringArray = nil
-	object, err := unmarshalUnion(data, nil, nil, nil, &x.String, true, &x.StringArray, false, nil, false, nil, false, nil, false)
-	if err != nil {
-		return err
-	}
-	if object {
-	}
-	return nil
+	_, err := unmarshalUnion(data, nil, nil, nil, &x.String, true, &x.StringArray, false, nil, false, nil, false, nil, false)
+	return err
 }
 
 func (x *Hreflang) MarshalJSON() ([]byte, error) {

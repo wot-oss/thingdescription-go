@@ -1,6 +1,8 @@
 package thingDescription
 
 import (
+	"bytes"
+	"io"
 	"net/url"
 
 	"github.com/fredbi/uri"
@@ -18,9 +20,8 @@ func (c *ThingDescription) HandleJSONData(data map[string]interface{}) error {
 	return nil
 }
 
-func (r *ThingDescription) UnmarshalJSON(data []byte) error {
+func (r *ThingDescription) UnmarshalJSONRead(input io.Reader) error {
 	type ThingDescriptionRaw ThingDescription
-
 	tmp := struct {
 		Base string `json:"base"`
 		ID   string `json:"id"`
@@ -28,7 +29,7 @@ func (r *ThingDescription) UnmarshalJSON(data []byte) error {
 	}{
 		ThingDescriptionRaw: (*ThingDescriptionRaw)(r),
 	}
-	err := json.Unmarshal(data, &tmp)
+	err := json.UnmarshalRead(input, &tmp)
 	if err != nil {
 		return err
 	}
@@ -45,9 +46,9 @@ func (r *ThingDescription) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r ThingDescription) MarshalJSON() ([]byte, error) {
+func (r ThingDescription) MarshalJSONWrite(output io.Writer) error {
 	type ThingDescriptionRaw ThingDescription
-	return json.Marshal(&struct {
+	return json.MarshalWrite(output, &struct {
 		Base string `json:"base,omitempty"`
 		ID   string `json:"id"`
 		*ThingDescriptionRaw
@@ -56,6 +57,19 @@ func (r ThingDescription) MarshalJSON() ([]byte, error) {
 		ID:                  r.ID.String(),
 		ThingDescriptionRaw: (*ThingDescriptionRaw)(&r),
 	})
+}
+
+func (r *ThingDescription) UnmarshalJSON(data []byte) error {
+	return r.UnmarshalJSONRead(bytes.NewReader(data))
+}
+
+func (r ThingDescription) MarshalJSON() ([]byte, error) {
+	buf := bytes.NewBuffer(nil)
+	err := r.MarshalJSONWrite(buf)
+	if err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
 }
 
 // JSON Schema for validating TD instances against the TD information model. TD instances

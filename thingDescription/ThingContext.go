@@ -8,13 +8,8 @@ type ThingContext struct {
 func (x *ThingContext) UnmarshalJSON(data []byte) error {
 	x.AnythingArray = nil
 	x.Enum = nil
-	object, err := unmarshalUnion(data, nil, nil, nil, nil, true, &x.AnythingArray, false, nil, false, nil, true, &x.Enum, false)
-	if err != nil {
-		return err
-	}
-	if object {
-	}
-	return nil
+	_, err := unmarshalUnion(data, nil, nil, nil, nil, true, &x.AnythingArray, false, nil, false, nil, true, &x.Enum, false)
+	return err
 }
 
 func (x *ThingContext) MarshalJSON() ([]byte, error) {
