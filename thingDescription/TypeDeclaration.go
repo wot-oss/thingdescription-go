@@ -7,13 +7,8 @@ type TypeDeclaration struct {
 
 func (x *TypeDeclaration) UnmarshalJSON(data []byte) error {
 	x.StringArray = nil
-	object, err := unmarshalUnion(data, nil, nil, nil, &x.String, true, &x.StringArray, false, nil, false, nil, false, nil, false)
-	if err != nil {
-		return err
-	}
-	if object {
-	}
-	return nil
+	_, err := unmarshalUnion(data, nil, nil, nil, &x.String, true, &x.StringArray, false, nil, false, nil, false, nil, false)
+	return err
 }
 
 func (x *TypeDeclaration) MarshalJSON() ([]byte, error) {

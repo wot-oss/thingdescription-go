@@ -12,13 +12,8 @@ type Properties struct {
 func (x *Properties) UnmarshalJSON(data []byte) error {
 	x.AnythingArray = nil
 	x.DataSchemaMap = nil
-	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, false, nil, true, &x.DataSchemaMap, false, nil, true)
-	if err != nil {
-		return err
-	}
-	if object {
-	}
-	return nil
+	_, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, false, nil, true, &x.DataSchemaMap, false, nil, true)
+	return err
 }
 
 func (x *Properties) MarshalJSON() ([]byte, error) {

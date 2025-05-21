@@ -1,9 +1,10 @@
 package thingDescription
 
-import "encoding/json"
-
-import "bytes"
-import "errors"
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+)
 
 func unmarshalUnion(data []byte, pi **int64, pf **float64, pb **bool, ps **string, haveArray bool, pa interface{}, haveObject bool, pc interface{}, haveMap bool, pm interface{}, haveEnum bool, pe interface{}, nullable bool) (bool, error) {
 	if pi != nil {
@@ -41,17 +42,17 @@ func unmarshalUnion(data []byte, pi **int64, pf **float64, pb **bool, ps **strin
 				*pf = &f
 				return false, nil
 			}
-			return false, errors.New("Unparsable number")
+			return false, errors.New("unparsable number")
 		}
-		return false, errors.New("Union does not contain number")
+		return false, errors.New("union does not contain number")
 	case float64:
-		return false, errors.New("Decoder should not return float64")
+		return false, errors.New("decoder should not return float64")
 	case bool:
 		if pb != nil {
 			*pb = &v
 			return false, nil
 		}
-		return false, errors.New("Union does not contain bool")
+		return false, errors.New("union does not contain bool")
 	case string:
 		if haveEnum {
 			return false, json.Unmarshal(data, pe)
@@ -60,12 +61,12 @@ func unmarshalUnion(data []byte, pi **int64, pf **float64, pb **bool, ps **strin
 			*ps = &v
 			return false, nil
 		}
-		return false, errors.New("Union does not contain string")
+		return false, errors.New("union does not contain string")
 	case nil:
 		if nullable {
 			return false, nil
 		}
-		return false, errors.New("Union does not contain null")
+		return false, errors.New("union does not contain null")
 	case json.Delim:
 		if v == '{' {
 			if haveObject {
@@ -74,17 +75,17 @@ func unmarshalUnion(data []byte, pi **int64, pf **float64, pb **bool, ps **strin
 			if haveMap {
 				return false, json.Unmarshal(data, pm)
 			}
-			return false, errors.New("Union does not contain object")
+			return false, errors.New("union does not contain object")
 		}
 		if v == '[' {
 			if haveArray {
 				return false, json.Unmarshal(data, pa)
 			}
-			return false, errors.New("Union does not contain array")
+			return false, errors.New("union does not contain array")
 		}
-		return false, errors.New("Cannot handle delimiter")
+		return false, errors.New("cannot handle delimiter")
 	}
-	return false, errors.New("Cannot unmarshal union")
+	return false, errors.New("cannot unmarshal union")
 
 }
 
@@ -116,5 +117,5 @@ func marshalUnion(pi *int64, pf *float64, pb *bool, ps *string, haveArray bool, 
 	if nullable {
 		return json.Marshal(nil)
 	}
-	return nil, errors.New("Union must not be null")
+	return nil, errors.New("union must not be null")
 }

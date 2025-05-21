@@ -6,13 +6,8 @@ type MultipleOfDefinition struct {
 }
 
 func (x *MultipleOfDefinition) UnmarshalJSON(data []byte) error {
-	object, err := unmarshalUnion(data, &x.Integer, &x.Double, nil, nil, false, nil, false, nil, false, nil, false, nil, false)
-	if err != nil {
-		return err
-	}
-	if object {
-	}
-	return nil
+	_, err := unmarshalUnion(data, &x.Integer, &x.Double, nil, nil, false, nil, false, nil, false, nil, false, nil, false)
+	return err
 }
 
 func (x *MultipleOfDefinition) MarshalJSON() ([]byte, error) {
